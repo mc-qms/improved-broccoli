@@ -94,7 +94,7 @@ if run_audit and user_input.strip():
 
         try:
             response = client.chat.completions.create(
-                model="llama-3.1-8b-instant",
+                model="llama-3.3-70b-versatile",
                 response_format={"type": "json_object"},
                 temperature=0.0,
                 messages=[
@@ -139,7 +139,7 @@ if st.session_state.findings:
                         f"GAP: {item.get('evidence_gap', 'None specified')}"
                     )
                     c_response = client.chat.completions.create(
-                        model="llama-3.1-8b-instant",
+                        model="llama-3.3-70b-versatile",
                         temperature=0.1,
                         messages=[
                             {"role": "system", "content": CONSULTANT_SPEC},
