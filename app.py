@@ -28,7 +28,7 @@ client = OpenAI(
 # --- PRE-LOADED SCRUBBED DEMO SAMPLES ---
 SAMPLES = {
     "Select a demo sample...": "",
-    "Scope Expander (Deviation)": (
+    "Scope Expander & Historical Shield (Bioreactor Deviation)": (
         "During routine review of the bioreactor pH loop, a transient drop to"
         " 6.42 was observed for 18 minutes. This type of intermittent sensor"
         " fluctuation is occasionally observed during warmer months and"
@@ -36,12 +36,35 @@ SAMPLES = {
         " was determined to be acceptable based on historical batch"
         " comparability."
     ),
-    "Speculative Cause & Trust-Me Claim (OOS)": (
-        "Assay testing for Lot 2026-X failed low at 88.4% (specification"
-        " 95.0-105.0%). The analyst likely misaligned the sample carousel"
-        " prior to initiating the automated injection sequence. A re-test was"
-        " performed in duplicate which yielded 99.1%, confirming the batch"
-        " remains safe, pure, and efficacious."
+    "Speculative Cause & 'Trust Me' Claim (QC Lab OOS)": (
+        "Potency assay testing for Lot 2026-X yielded an OOS result of 88.4%"
+        " (spec 95.0-105.0%). The analyst likely misaligned the sample"
+        " carousel prior to initiating the automated injection sequence. A"
+        " re-test was performed in duplicate which yielded 99.1%, confirming"
+        " the batch remains safe, pure, and efficacious."
+    ),
+    "Collateral Admission & Mismatched Remediation (Filling CAPA)": (
+        "Investigation into the off-spec fill volume revealed that SOP-4022"
+        " step 4.1 is poorly worded and creates confusion during line setup."
+        " Operator A performed the priming step out of sequence due to this"
+        " ambiguity. To remediate this issue, Operator A was retrained on"
+        " general filling awareness to prevent recurrence."
+    ),
+    "Symptom as Cause & Arbitrary Boundary (Component Assembly)": (
+        "A burst pressure failure occurred during lot release testing of"
+        " silicone tubing assembly Lot T-882. The root cause was determined to"
+        " be mechanical stress concentration resulting in material wall"
+        " rupture. Quarantine was applied strictly to sub-lot T-882-B"
+        " manufactured during the morning shift; sub-lot T-882-A from the"
+        " prior shift was cleared for release as no line alarms occurred."
+    ),
+    "Qualitative Smokescreen & 'Trust Me' (Sterilization Change)": (
+        "To optimize cycle turnaround times, autoclave dwell time was reduced"
+        " from 45 minutes to 35 minutes. Post-cycle bioburden levels were"
+        " nominally comparable to historical baseline runs, showing minimal"
+        " difference in microbial reduction. The modified cycle is considered"
+        " fully qualified based on our extensive past operating history with"
+        " similar porous loads."
     ),
 }
 
