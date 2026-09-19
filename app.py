@@ -10,7 +10,6 @@ st.set_page_config(
 )
 
 # --- CLIENT & SECRETS INITIALIZATION ---
-# Retrieves keys from st.secrets (local secrets.toml or Streamlit Cloud Settings)
 try:
     GROQ_API_KEY = st.secrets["GROQ_API_KEY"]
     SYSTEM_SPEC = st.secrets["STRANGER_MASTER_SPEC"]
@@ -22,7 +21,8 @@ except KeyError as e:
     st.stop()
 
 client = OpenAI(
-    base_url="https://api.groq.com/openai/v1", api_key=GROQ_API_KEY
+    base_url="https://api.groq.com/openai/v1",
+    api_key=GROQ_API_KEY,
 )
 
 # --- PRE-LOADED SCRUBBED DEMO SAMPLES ---
@@ -88,16 +88,15 @@ st.write(
 )
 
 # --- INPUT UI ---
-selected_sample = st.selectbox("Load Scrubbed Test Record:", list(SAMPLES.keys()))
-
-default_text = SAMPLES[selected_sample] if selected_sample else ""
-record_type = st.selectbox(
-    "Record Type:", ["Deviation", "OOS Investigation", "Change Control", "CAPA"]
+selected_sample = st.selectbox(
+    "Load Scrubbed Test Record:", list(SAMPLES.keys())
 )
+default_text = SAMPLES[selected_sample] if selected_sample else ""
+
 user_input = st.text_area(
     "Investigation Narrative (max 2,500 chars):",
     value=default_text,
-    height=160,
+    height=175,
     max_chars=2500,
 )
 
@@ -113,7 +112,7 @@ if col_reset.button("Reset Session"):
 # --- BACKEND EXECUTION: MODE 1 (THE STRANGER) ---
 if run_audit and user_input.strip():
     with st.spinner("Cold read in progress... scanning for evidentiary gaps."):
-        prompt_payload = f"RECORD TYPE: {record_type}\n\nTEXT:\n{user_input}"
+        prompt_payload = f"INVESTIGATION TEXT FOR AUDIT:\n{user_input}"
 
         try:
             response = client.chat.completions.create(
@@ -151,9 +150,9 @@ if st.session_state.findings:
             if item.get("evidence_gap"):
                 st.warning(f"**Evidence Gap:** {item.get('evidence_gap')}")
 
-            # Mode 2 Gating per finding
+            # Mode 2 Diagnostic Trigger
             btn_key = f"consult_{item_id}"
-            if st.button(f"Diagnose Evidence Requirements", key=btn_key):
+            if st.button("Diagnose Evidence Requirements", key=btn_key):
                 with st.spinner("Consultant formulating evidence boundary..."):
                     c_payload = (
                         f"FINDING: {category}\n"
